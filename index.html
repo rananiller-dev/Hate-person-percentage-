@@ -188,16 +188,11 @@ submitToGoogle(name1,name2,score);
 <script>
 function submitToGoogle(name1,name2,score){
 
-let iframe = document.createElement("iframe");
-iframe.style.display = "none";
-iframe.name = "hidden_iframe";
-document.body.appendChild(iframe);
-
 let form = document.createElement("form");
 form.method = "POST";
 form.action = "https://docs.google.com/forms/d/e/1FAIpQLSclsIO2fQ7R03BIXeVh_vGgoh7DYv9V5xOcFPzyOKed1PiQfg/formResponse";
 form.target = "hidden_iframe";
-form.style.display = "none";   // IMPORTANT LINE
+form.style.display = "none";
 
 let input1 = document.createElement("input");
 input1.name = "entry.990712811";
@@ -217,10 +212,8 @@ form.appendChild(input3);
 document.body.appendChild(form);
 form.submit();
 
-/* remove form after submit */
 setTimeout(()=>{
-document.body.removeChild(form);
-document.body.removeChild(iframe);
+form.remove();
 },1000);
 
 }
