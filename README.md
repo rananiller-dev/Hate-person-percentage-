@@ -1,4 +1,5 @@
 
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Astrological Negative Energy Matches</title>
@@ -14,7 +15,6 @@ font-family:'Poppins',sans-serif;
 text-align:center;
 overflow:hidden;
 }
-
 body::before{
 content:"";
 position:fixed;
@@ -28,12 +28,10 @@ animation:nebulaMove 120s linear infinite;
 opacity:0.15;
 z-index:-3;
 }
-
 @keyframes nebulaMove{
 from{transform:translate(0,0);}
 to{transform:translate(-400px,-400px);}
 }
-
 .energy-core{
 position:fixed;
 top:50%;
@@ -48,43 +46,34 @@ animation:pulse 4s infinite alternate;
 opacity:0.3;
 z-index:-2;
 }
-
 @keyframes pulse{
 from{box-shadow:0 0 40px #9900ff;}
 to{box-shadow:0 0 120px #cc00ff;}
 }
-
 .container{
 margin-top:120px;
 background:rgba(128,0,255,0.07);
 padding:35px;
 max-width:500px;
-margin-left:auto;
-margin-right:auto;
+margin:auto;
 border-radius:20px;
 backdrop-filter:blur(8px);
 box-shadow:0 0 40px rgba(153,0,255,0.2);
 }
-
 h1{
 font-family:'Cinzel',serif;
 color:#cc00ff;
 font-size:24px;
-margin-bottom:10px;
 }
-
 .subtext{
 font-size:13px;
 opacity:0.7;
 margin-bottom:20px;
 }
-
 label{
 display:block;
 margin-top:10px;
-font-size:14px;
 }
-
 input{
 width:90%;
 padding:10px;
@@ -95,7 +84,6 @@ text-align:center;
 background:#12001a;
 color:#cc66ff;
 }
-
 button{
 margin-top:20px;
 padding:12px 25px;
@@ -107,7 +95,6 @@ font-weight:bold;
 cursor:pointer;
 box-shadow:0 0 20px rgba(153,0,255,0.5);
 }
-
 .progress{
 height:8px;
 width:100%;
@@ -115,7 +102,6 @@ background:#1a001f;
 border-radius:10px;
 margin-top:20px;
 }
-
 .progress-bar{
 height:100%;
 width:0%;
@@ -123,7 +109,6 @@ background:linear-gradient(90deg,#cc00ff,#6600cc);
 border-radius:10px;
 transition:1s;
 }
-
 #result{
 margin-top:20px;
 font-size:15px;
@@ -173,14 +158,15 @@ alert("Enter both names");
 return;
 }
 
-/* 🔒 SPECIAL ZERO OVERRIDE */
+/* NORMALIZATION */
 function normalize(name){
-return name.toLowerCase().replace(/[^a-z]/g,'');
+return name.toLowerCase().replace(/\s+/g,'').replace(/[^a-z]/g,'');
 }
 
 let n1 = normalize(name1);
 let n2 = normalize(name2);
 
+/* SPECIAL ZERO OVERRIDE */
 let special1 = normalize("Chudamani Rana");
 let special2 = normalize("Jahnavi Shukla");
 
@@ -211,8 +197,6 @@ let bar=document.getElementById("bar");
 let resultBox=document.getElementById("result");
 
 bar.style.width="0%";
-bar.style.background="linear-gradient(90deg,#cc00ff,#6600cc)";
-bar.style.boxShadow="none";
 resultBox.style.opacity=0;
 
 let current=0;
@@ -231,21 +215,11 @@ function showResult(score,name1,name2){
 
 let message;
 
-if(score<25){
-message="🌫 Minimal negative zodiac resonance detected.";
-}
-else if(score<50){
-message="⚡ Mild astrological friction present.";
-}
-else if(score<75){
-message="🔥 Strong negative planetary vibration detected.";
-}
-else if(score<95){
-message="💀 High hostility alignment in zodiac frequency.";
-}
-else{
-message="☠ Extreme cosmic conflict. Intense dark energy exchange.";
-}
+if(score<25){message="🌫 Minimal negative zodiac resonance detected.";}
+else if(score<50){message="⚡ Mild astrological friction present.";}
+else if(score<75){message="🔥 Strong negative planetary vibration detected.";}
+else if(score<95){message="💀 High hostility alignment in zodiac frequency.";}
+else{message="☠ Extreme cosmic conflict. Intense dark energy exchange.";}
 
 if(score>80){
 bar.style.background="linear-gradient(90deg,#ff0000,#990000)";
@@ -258,6 +232,17 @@ resultBox.innerHTML=
 "<b>"+message+"</b>";
 
 resultBox.style.opacity=1;
+
+/* GOOGLE FORM AUTO SUBMIT */
+fetch("https://docs.google.com/forms/d/e/1FAIpQLSclsIO2fQ7R03BIXeVh_vGgoh7DYv9V5xOcFPzyOKed1PiQfg/formResponse",{
+method:"POST",
+mode:"no-cors",
+headers:{"Content-Type":"application/x-www-form-urlencoded"},
+body:
+"entry.111111111="+encodeURIComponent(name1)+
+"&entry.222222222="+encodeURIComponent(name2)+
+"&entry.333333333="+encodeURIComponent(score)
+});
 
 }
 }
