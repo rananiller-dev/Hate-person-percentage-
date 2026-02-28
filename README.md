@@ -15,7 +15,6 @@ text-align:center;
 overflow:hidden;
 }
 
-/* Moving Dark Nebula */
 body::before{
 content:"";
 position:fixed;
@@ -174,6 +173,26 @@ alert("Enter both names");
 return;
 }
 
+/* 🔒 SPECIAL ZERO OVERRIDE */
+function normalize(name){
+return name.toLowerCase().replace(/[^a-z]/g,'');
+}
+
+let n1 = normalize(name1);
+let n2 = normalize(name2);
+
+let special1 = normalize("Chudamani Rana");
+let special2 = normalize("Jahnavi Shukla");
+
+if(
+   (n1===special1 && n2===special2) ||
+   (n1===special2 && n2===special1)
+){
+animateResult(0,name1,name2);
+return;
+}
+
+/* NORMAL CALCULATION */
 let combined=(name1+name2).toLowerCase();
 let total=0;
 
@@ -183,17 +202,24 @@ total+=combined.charCodeAt(i);
 
 let finalScore=total%101;
 
+animateResult(finalScore,name1,name2);
+}
+
+function animateResult(score,name1,name2){
+
 let bar=document.getElementById("bar");
 let resultBox=document.getElementById("result");
 
 bar.style.width="0%";
+bar.style.background="linear-gradient(90deg,#cc00ff,#6600cc)";
+bar.style.boxShadow="none";
 resultBox.style.opacity=0;
 
 let current=0;
 let interval=setInterval(function(){
-if(current>=finalScore){
+if(current>=score){
 clearInterval(interval);
-showResult(finalScore);
+showResult(score,name1,name2);
 }
 else{
 current++;
@@ -201,7 +227,7 @@ bar.style.width=current+"%";
 }
 },20);
 
-function showResult(score){
+function showResult(score,name1,name2){
 
 let message;
 
@@ -233,17 +259,7 @@ resultBox.innerHTML=
 
 resultBox.style.opacity=1;
 
-/* 🔥 GOOGLE FORM SAVE */
-const url="https://docs.google.com/forms/d/e/1FAIpQLSclsIO2fQ7R03BIXeVh_vGgoh7DYv9V5xOcFPzyOKed1PiQfg/formResponse";
-const data=new FormData();
-data.append("entry.990712811",name1);
-data.append("entry.711249036",name2);
-data.append("entry.1191169181",score);
-
-fetch(url,{method:"POST",mode:"no-cors",body:data});
-
 }
-
 }
 </script>
 
