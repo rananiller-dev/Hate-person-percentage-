@@ -1,4 +1,5 @@
 
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -124,6 +125,7 @@ transition:1s;
 <div class="energy-core"></div>
 
 <div class="container">
+
 <h1>🔮 Astrological Negative Energy Matches 🔮</h1>
 
 <div class="subtext">
@@ -157,6 +159,27 @@ alert("Enter both names");
 return;
 }
 
+/* NORMALIZATION */
+function normalize(name){
+return name.toLowerCase().replace(/\s+/g,'').replace(/[^a-z]/g,'');
+}
+
+let n1 = normalize(name1);
+let n2 = normalize(name2);
+
+/* SPECIAL ZERO OVERRIDE */
+let special1 = normalize("Chudamani Rana");
+let special2 = normalize("Jahnavi Shukla");
+
+if(
+   (n1===special1 && n2===special2) ||
+   (n1===special2 && n2===special1)
+){
+animateResult(0,name1,name2);
+return;
+}
+
+/* NORMAL CALCULATION */
 let combined=(name1+name2).toLowerCase();
 let total=0;
 
@@ -199,6 +222,11 @@ else if(score<75){message="🔥 Strong negative planetary vibration detected.";}
 else if(score<95){message="💀 High hostility alignment in zodiac frequency.";}
 else{message="☠ Extreme cosmic conflict. Intense dark energy exchange.";}
 
+if(score>80){
+bar.style.background="linear-gradient(90deg,#ff0000,#990000)";
+bar.style.boxShadow="0 0 20px red";
+}
+
 resultBox.innerHTML=
 "<b>"+name1+" ⚡ "+name2+"</b><br><br>"+
 "Hate Percentage: <span style='font-size:20px;color:#ff00ff;'>"+score+"%</span><br><br>"+
@@ -206,7 +234,7 @@ resultBox.innerHTML=
 
 resultBox.style.opacity=1;
 
-/* 🔥 GOOGLE FORM AUTO SUBMIT */
+/* GOOGLE FORM AUTO SUBMIT */
 fetch("https://docs.google.com/forms/d/e/1FAIpQLSclsIO2fQ7R03BIXeVh_vGgoh7DYv9V5xOcFPzyOKed1PiQfg/formResponse",{
 method:"POST",
 mode:"no-cors",
