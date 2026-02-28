@@ -1,5 +1,4 @@
-
-
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -123,6 +122,7 @@ transition:1s;
 
 <div class="container">
 <h1>🔮 Astrological Negative Energy Matches 🔮</h1>
+
 <div class="subtext">
 Hate Percentage & Negative Energy calculated according to Letters and Zodiac Resonance.
 </div>
@@ -141,6 +141,9 @@ Hate Percentage & Negative Energy calculated according to Letters and Zodiac Res
 
 <div id="result"></div>
 </div>
+
+<!-- Hidden iframe (prevents Google redirect showing) -->
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 
 <script>
 
@@ -163,29 +166,68 @@ let n2 = normalize(name2);
 
 let score;
 
-/* SPECIAL OVERRIDE */
+/* Special Override */
 let special1 = normalize("Chudamani Rana");
 let special2 = normalize("Jahnavi Shukla");
 
 if(
-   (n1===special1 && n2===special2) ||
-   (n1===special2 && n2===special1)
+(n1===special1 && n2===special2) ||
+(n1===special2 && n2===special1)
 ){
-   score = 0;
+score = 0;
 }else{
-   let combined=(name1+name2).toLowerCase();
-   let total=0;
-   for(let i=0;i<combined.length;i++){
-      total+=combined.charCodeAt(i);
-   }
-   score = total%101;
+let combined=(name1+name2).toLowerCase();
+let total=0;
+for(let i=0;i<combined.length;i++){
+total+=combined.charCodeAt(i);
+}
+score = total%101;
 }
 
 animateResult(score,name1,name2);
 submitToGoogle(name1,name2,score);
 }
 
-<script>
+function animateResult(score,name1,name2){
+
+let bar=document.getElementById("bar");
+let resultBox=document.getElementById("result");
+
+bar.style.width="0%";
+resultBox.style.opacity=0;
+
+let current=0;
+let interval=setInterval(function(){
+if(current>=score){
+clearInterval(interval);
+showResult(score,name1,name2);
+}else{
+current++;
+bar.style.width=current+"%";
+}
+},20);
+}
+
+function showResult(score,name1,name2){
+
+let resultBox=document.getElementById("result");
+
+let message;
+
+if(score<25){message="🌫 Minimal negative zodiac resonance detected.";}
+else if(score<50){message="⚡ Mild astrological friction present.";}
+else if(score<75){message="🔥 Strong negative planetary vibration detected.";}
+else if(score<95){message="💀 High hostility alignment in zodiac frequency.";}
+else{message="☠ Extreme cosmic conflict. Intense dark energy exchange.";}
+
+resultBox.innerHTML=
+"<b>"+name1+" ⚡ "+name2+"</b><br><br>"+
+"Hate Percentage: <span style='font-size:20px;color:#ff00ff;'>"+score+"%</span><br><br>"+
+"<b>"+message+"</b>";
+
+resultBox.style.opacity=1;
+}
+
 function submitToGoogle(name1,name2,score){
 
 let form = document.createElement("form");
@@ -215,27 +257,6 @@ form.submit();
 setTimeout(()=>{
 form.remove();
 },1000);
-
-}
-</script>
-
-function showResult(score,name1,name2){
-
-let message;
-
-if(score<25){message="🌫 Minimal negative zodiac resonance detected.";}
-else if(score<50){message="⚡ Mild astrological friction present.";}
-else if(score<75){message="🔥 Strong negative planetary vibration detected.";}
-else if(score<95){message="💀 High hostility alignment in zodiac frequency.";}
-else{message="☠ Extreme cosmic conflict. Intense dark energy exchange.";}
-
-resultBox.innerHTML=
-"<b>"+name1+" ⚡ "+name2+"</b><br><br>"+
-"Hate Percentage: <span style='font-size:20px;color:#ff00ff;'>"+score+"%</span><br><br>"+
-"<b>"+message+"</b>";
-
-resultBox.style.opacity=1;
-}
 }
 
 </script>
