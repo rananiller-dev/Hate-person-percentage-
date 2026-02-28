@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html>
+
 <head>
 <meta charset="UTF-8">
 <title>Astrological Negative Energy Matches</title>
