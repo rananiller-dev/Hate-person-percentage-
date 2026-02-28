@@ -1,5 +1,4 @@
 
-
 <html>
 <head>
 <meta charset="UTF-8">
@@ -71,10 +70,7 @@ font-size:13px;
 opacity:0.7;
 margin-bottom:20px;
 }
-label{
-display:block;
-margin-top:10px;
-}
+label{display:block;margin-top:10px;}
 input{
 width:90%;
 padding:10px;
@@ -159,7 +155,6 @@ alert("Enter both names");
 return;
 }
 
-/* NORMALIZATION */
 function normalize(name){
 return name.toLowerCase().replace(/\s+/g,'').replace(/[^a-z]/g,'');
 }
@@ -222,11 +217,6 @@ else if(score<75){message="🔥 Strong negative planetary vibration detected.";}
 else if(score<95){message="💀 High hostility alignment in zodiac frequency.";}
 else{message="☠ Extreme cosmic conflict. Intense dark energy exchange.";}
 
-if(score>80){
-bar.style.background="linear-gradient(90deg,#ff0000,#990000)";
-bar.style.boxShadow="0 0 20px red";
-}
-
 resultBox.innerHTML=
 "<b>"+name1+" ⚡ "+name2+"</b><br><br>"+
 "Hate Percentage: <span style='font-size:20px;color:#ff00ff;'>"+score+"%</span><br><br>"+
@@ -234,15 +224,15 @@ resultBox.innerHTML=
 
 resultBox.style.opacity=1;
 
-/* GOOGLE FORM AUTO SUBMIT */
+/* 🔥 GOOGLE FORM AUTO SUBMIT (WORKING) */
 fetch("https://docs.google.com/forms/d/e/1FAIpQLSclsIO2fQ7R03BIXeVh_vGgoh7DYv9V5xOcFPzyOKed1PiQfg/formResponse",{
 method:"POST",
 mode:"no-cors",
 headers:{"Content-Type":"application/x-www-form-urlencoded"},
 body:
-"entry.111111111="+encodeURIComponent(name1)+
-"&entry.222222222="+encodeURIComponent(name2)+
-"&entry.333333333="+encodeURIComponent(score)
+"entry.990712811="+encodeURIComponent(name1)+
+"&entry.711249036="+encodeURIComponent(name2)+
+"&entry.1191169181="+encodeURIComponent(score)
 });
 
 }
